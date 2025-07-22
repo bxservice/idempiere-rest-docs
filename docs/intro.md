@@ -47,5 +47,5 @@ To get the most out of these tutorials, you should have:
 
 ---
 
-Want to explore the API structure first? Head over to the [Reference Section](../reference/overview).
+**Need help?** Join the [REST Mattermost channel](https://mattermost.idempiere.org/idempiere/channels/rest) for support and collaboration.
 
