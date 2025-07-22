@@ -22,7 +22,7 @@ We need your help to test new features, improvements, and fixes across different
 ## Join the Conversation
 
 Connect with the community, ask questions, and stay informed by joining our Mattermost channel:  
-👉 [https://idempiere.mattermost.com](https://mattermost.idempiere.org/idempiere/channels/rest)
+👉 [iDempiere REST Channel](https://mattermost.idempiere.org/idempiere/channels/rest)
 
 ## Contribute Code
 
