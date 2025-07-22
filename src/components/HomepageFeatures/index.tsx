@@ -1,52 +1,55 @@
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
+import { useColorMode } from '@docusaurus/theme-common';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+import { FaPlug, FaShieldAlt, FaCloud } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Icon: IconType;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Effortless Integration',
+    Icon: FaPlug,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Connect iDempiere with modern apps and services —CRM, eCommerce, mobile platforms, and more— using a clean, standardized RESTful interface.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Secure and Scalable',
+    Icon: FaShieldAlt,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Built for enterprise needs, the REST API delivers reliable performance and robust security for automating critical business workflows.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Your Data, Anywhere',
+    Icon: FaCloud,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Query, manage, and interact with your iDempiere data from any device or system, wherever you are—fast and hassle-free.
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Icon, description }: FeatureItem) {
+  const { colorMode } = useColorMode();
+  const iconColor = colorMode === 'dark' ? '#4fa8de' : '#1074b4';
+
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <Icon size={40} color={iconColor} />
       </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
