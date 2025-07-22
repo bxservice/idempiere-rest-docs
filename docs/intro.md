@@ -4,44 +4,48 @@ sidebar_position: 1
 
 # Tutorial Intro
 
-Let's discover **Docusaurus in less than 5 minutes**.
+The **iDempiere REST API** is a powerful plugin that allows developers to interact with an iDempiere server through a modern, RESTful interface. All data is exchanged over HTTP using JSON, making it easy to connect with any system or tool that supports web services.
 
-## Getting Started
+This API is designed with developers in mind and follows the [OData standard](https://www.odata.org/) to ensure consistency, structure, and predictability across endpoints.
 
-Get started by **creating a new site**.
+---
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## ⚙️ What You'll Learn
 
-### What you'll need
+These tutorials cover practical use cases and real-world workflows, including:
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+- Authenticating with the iDempiere REST API
+- Retrieving and filtering records using OData syntax
+- Creating, updating, and deleting business data
+- Executing custom processes and views
+- Debugging and testing with Postman
 
-## Generate a new site
+---
 
-Generate a new Docusaurus site using the **classic template**.
+## 📦 Postman Collections
 
-The classic template will automatically be added to your project after you run the command:
+You can find example requests and a complete collection of calls in the official [Postman collection](https://github.com/bxservice/idempiere-rest/tree/master/com.trekglobal.idempiere.rest.api/postman) within the GitHub repository.
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+> Use them to quickly test endpoints and accelerate development.
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+---
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+## 🛠️ Prerequisites
 
-## Start your site
+To get the most out of these tutorials, you should have:
 
-Run the development server:
+- A running [iDempiere instance](https://github.com/idempiere/idempiere)
+- Basic knowledge of HTTP, REST, and JSON
+- A tool like Postman, curl, or your preferred HTTP client
 
-```bash
-cd my-website
-npm run start
-```
+---
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+## 🧭 Next Steps
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+➡️ Start with the [Quickstart Guide](./quickstart)  
+➡️ Or explore [Authentication](./authentication) to begin connecting
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+---
+
+Want to explore the API structure first? Head over to the [Reference Section](../reference/overview).
+
