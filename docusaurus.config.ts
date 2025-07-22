@@ -19,6 +19,9 @@ const config: Config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/idempiere-rest-docs/',
+  
+  // GitHub Pages adds trailing slashes by default, let's be explicit
+  trailingSlash: false,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
