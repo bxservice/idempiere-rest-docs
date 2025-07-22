@@ -1,6 +1,6 @@
 {
   "label": "Other resources",
-  "position": 6,
+  "position": 9,
   "link": {
     "type": "generated-index",
     "description": "Explore additional resources related to the iDempiere REST API, including advanced topics and community contributions."

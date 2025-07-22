@@ -1,0 +1,8 @@
+{
+  "label": "API Configuration",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn how to configure the iDempiere REST API to suit your needs."
+  }
+}
