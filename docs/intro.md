@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Intro
 
 The **iDempiere REST API** is a powerful plugin that allows developers to interact with an iDempiere server through a modern, RESTful interface. All data is exchanged over HTTP using JSON, making it easy to connect with any system or tool that supports web services.
 
@@ -43,7 +43,7 @@ To get the most out of these tutorials, you should have:
 ## 🧭 Next Steps
 
 ➡️ Start with the [Quickstart Guide](./quickstart)  
-➡️ Or explore [Authentication](./authentication) to begin connecting
+➡️ Or explore the full [API Guides](./category/api-guides/)
 
 ---
 

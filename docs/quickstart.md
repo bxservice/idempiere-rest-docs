@@ -57,7 +57,7 @@ If you receive JSON responses with data, congratulations! Your iDempiere REST AP
 
 ### Next Steps
 
-- Explore the [Tutorial section](./tutorial-basics) to learn more about the API
+- Explore the the full [API Guides](./category/api-guides/) to learn more about the API
 
 ### Troubleshooting
 
