@@ -96,7 +96,7 @@ GET /api/v1/models/c_tax/106/rate
 
 This returns only the `Rate` field and related metadata for the record.
 
-Respoonse
+### Sample Response
 
 ```json
 {
