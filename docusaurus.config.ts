@@ -58,6 +58,36 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        // For Docs-only mode:
+        docsRouteBasePath: '/docs',
+        // When applying `docs-only` mode, you still need to provide the `docsDir` option.
+        docsDir: 'docs',
+        // Whether to search the title of the page.
+        indexPages: true,
+        // Whether to search the content of the page.
+        indexBlog: false, // We don't have a blog
+        // Whether to search the docs sidebar.
+        indexDocs: true,
+        // language of your documentation, see next section for supported languages.
+        language: ['en'],
+        // Whether to display the search bar in the navigation bar.
+        searchBarShortcut: true,
+        // Whether to display the search bar shortcut hint.
+        searchBarShortcutHint: true,
+        // Whether to highlight the search results.
+        highlightSearchTermsOnTargetPage: true,
+        // Whether to display search suggestions.
+        explicitSearchResultPath: true,
+      },
+    ],
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
@@ -73,6 +103,10 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Documentation',
+        },
+        {
+          type: 'search',
+          position: 'right',
         },
         {
           href: 'https://github.com/bxservice/idempiere-rest',
@@ -138,6 +172,18 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+    // Uncomment and configure when your site is live for better search
+    // algolia: {
+    //   // The application ID provided by Algolia
+    //   appId: 'YOUR_APP_ID',
+    //   // Public API key: it is safe to commit it
+    //   apiKey: 'YOUR_SEARCH_API_KEY',
+    //   indexName: 'idempiere-rest-docs',
+    //   // Optional: see doc section below
+    //   contextualSearch: true,
+    //   // Optional: path for search page that enabled by default (`false` to disable it)
+    //   searchPagePath: 'search',
+    // },
   } satisfies Preset.ThemeConfig,
 };
 
