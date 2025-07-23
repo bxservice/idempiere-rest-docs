@@ -40,6 +40,13 @@ To get the most out of these tutorials, you should have:
 
 ---
 
+### 🔗 Explore the API
+
+You can explore and test the API interactively using Swagger UI:
+[Swagger UI for iDempiere REST](https://hengsin.github.io/idempiere-rest-swagger-ui)
+
+---
+
 ## 🧭 Next Steps
 
 ➡️ Start with the [Quickstart Guide](./quickstart)  

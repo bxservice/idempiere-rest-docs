@@ -19,6 +19,10 @@ Follow the installation instructions in the official guide: [How to distribute a
 Once installed, make sure the plugin is active via the **OSGi Console**:  
 `http://your-server/osgi/system/console/bundles`
 
+:::tip Continuous Integration
+You can view installation artifacts and build results at the [iDempiere REST Jenkins Job](https://jenkins.idempiere.org/job/idempiere-rest/).
+:::
+
 ### 2. Use Postman to Explore the API
 
 Download the official [Postman collection and environments](https://github.com/bxservice/idempiere-rest/blob/master/com.trekglobal.idempiere.rest.api/postman/).

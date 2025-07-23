@@ -18,3 +18,7 @@ iDempiere REST supports OpenAPI 3.0.0 for table and view definitions.
 ```
 Accept: application/yaml
 ```
+
+#### Interactive Documentation
+
+You can also explore the iDempiere REST API interactively using the public [Swagger UI](https://hengsin.github.io/idempiere-rest-swagger-ui)
