@@ -27,7 +27,7 @@ These tutorials cover practical use cases and real-world workflows, including:
 You can explore and test the iDempiere REST API using standard tools:
 
 - [Swagger UI](https://hengsin.github.io/idempiere-rest-swagger-ui)
-- [Postman Collection]((https://github.com/bxservice/idempiere-rest/tree/master/com.trekglobal.idempiere.rest.api/postman))
+- [Postman Collection](https://github.com/bxservice/idempiere-rest/tree/master/com.trekglobal.idempiere.rest.api/postman)
 
 > These tools provide interactive access to endpoints, parameters, and responses to help you quickly understand and integrate the API.
 
