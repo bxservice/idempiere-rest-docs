@@ -22,11 +22,15 @@ These tutorials cover practical use cases and real-world workflows, including:
 
 ---
 
-## 📦 Postman Collections
+## 🔗 Explore the API
 
-You can find example requests and a complete collection of calls in the official [Postman collection](https://github.com/bxservice/idempiere-rest/tree/master/com.trekglobal.idempiere.rest.api/postman) within the GitHub repository.
+You can explore and test the iDempiere REST API using standard tools:
 
-> Use them to quickly test endpoints and accelerate development.
+- [Swagger UI](https://hengsin.github.io/idempiere-rest-swagger-ui)
+- [Postman Collection]((https://github.com/bxservice/idempiere-rest/tree/master/com.trekglobal.idempiere.rest.api/postman))
+
+> These tools provide interactive access to endpoints, parameters, and responses to help you quickly understand and integrate the API.
+
 
 ---
 
@@ -37,13 +41,6 @@ To get the most out of these tutorials, you should have:
 - A running [iDempiere instance](https://github.com/idempiere/idempiere)
 - Basic knowledge of HTTP, REST, and JSON
 - A tool like Postman, curl, or your preferred HTTP client
-
----
-
-### 🔗 Explore the API
-
-You can explore and test the API interactively using Swagger UI:
-[Swagger UI for iDempiere REST](https://hengsin.github.io/idempiere-rest-swagger-ui)
 
 ---
 
