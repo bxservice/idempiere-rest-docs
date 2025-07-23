@@ -80,22 +80,4 @@ This returns the full JSON object for the record with ID `106`.
 
 ---
 
-## Getting a Specific Field
-
-To retrieve a single property from a record:
-
-```http
-GET /api/v1/models/{table-name}/{id|uuid}/{property}
-```
-
-### Example
-
-```http
-GET /api/v1/models/c_tax/106/rate
-```
-
-This returns only the `Rate` field and related metadata for the record.
-
----
-
 Ready to filter or sort results? Continue to the [Querying Data](./querying-data) guide.
