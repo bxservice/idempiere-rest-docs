@@ -88,8 +88,20 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'API Documentation',
+              label: 'Introduction',
               to: '/docs/intro',
+            },
+            {
+              label: 'Quick Start',
+              to: '/docs/quickstart',
+            },
+            {
+              label: 'API Guides',
+              to: '/docs/category/api-guides',
+            },
+            {
+              label: 'Contribute',
+              to: '/docs/contribute',
             },
           ],
         },
