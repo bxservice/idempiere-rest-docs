@@ -305,7 +305,23 @@ The `$valrule` option allows retrieving PO records using a validation rule by re
 
 ### Query Option `$context`
 
-The `$context` option is used to inject context variables which can be interpreted by the validation rule during the request.
+The `$context` The $context query option allows you to inject context variables into your request. These context variables can then be interpreted by validation rules, such as dynamic validations or reference filters, during the execution of the request.
+
+**Syntax**
+
+`$context=VariableName:Value`
+
+You can pass multiple context variables separated by commas:
+
+`$context=Variable1:Value1,Variable2:Value2`
+
+#### Example
+
+`GET /api/v1/models/c_uom?$valrule=210&$context=M_Product_ID:124&$select=Name`
+
+In this example:
+- `$valrule=210` specifies the validation rule ID to apply.
+- `$context=M_Product_ID:124` sets the M_Product_ID context variable to 124, so the validation rule has access to it.
 
 ---
 
