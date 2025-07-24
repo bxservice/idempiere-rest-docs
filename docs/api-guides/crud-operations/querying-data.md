@@ -305,7 +305,7 @@ The `$valrule` option allows retrieving PO records using a validation rule by re
 
 ### Query Option `$context`
 
-The `$context` The $context query option allows you to inject context variables into your request. These context variables can then be interpreted by validation rules, such as dynamic validations or reference filters, during the execution of the request.
+The `$context` query option allows you to inject context variables into your request. These context variables can then be interpreted by validation rules, such as dynamic validations or reference filters, during the execution of the request.
 
 **Syntax**
 
