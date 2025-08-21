@@ -4,20 +4,6 @@ sidebar_position: 8
 
 # Other Endpoints
 
-## Nodes `api/v1/nodes`
-
-Manage nodes in the system including retrieving node information and handling log operations.
-
-**Operations Available**:
-- Get node information
-- Get log files
-- Reset logs
-- Rotate logs
-
-**Status**: To Be Documented (TBD)
-
----
-
 ## Servers `api/v1/servers`
 
 Manage server and scheduler resources.
