@@ -25,6 +25,7 @@ Initiates a new upload session.
 **Returns:**
 
 - `uploadId`, `chunkSize`, `expiresAt`, `presignedURL`
+- `presignedURL`: pre-signed URL for PUT api/v1/upload/\{uploadId\}/chunks/\{chunkOrder\}
 
 ---
 
@@ -40,6 +41,7 @@ Uploads a file chunk.
 **Returns:**
 
 - `uploadId`, `chunkOrder`, `receivedSize`, `message`, `isLastChunk`
+- `isLastChunk`: true if the just uploaded chunk is the last chunk receive and will trigger completion of the upload request
 
 ---
 
@@ -53,7 +55,8 @@ Gets upload session status.
 
 **Returns:**
 
-- Upload session metadata, uploaded chunk info, optional `presignedURL`
+- Upload session metadata, uploaded chunk info, image Id (for IMAGE upload location), optional `presignedURL`
+- `presignedURL`: pre-signed URL for GET api/v1/uplods/\{uploadId\} and GET api/v1/uplods/\{uploadId\}/file if a positive value is provided for the expireInSeconds query parameter
 
 ---
 
@@ -87,7 +90,7 @@ Lists pending uploads for the current user.
 
 **Returns:**
 
-- A list of upload session metadata
+- Upload status for all pending upload sessions
 
 ---
 
@@ -103,4 +106,4 @@ Copies uploaded file to a destination record.
 
 **Returns:**
 
-- Upload and destination record metadata
+- Upload session id and destination record metadata (table name, id and uuid)
