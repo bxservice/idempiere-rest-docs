@@ -15,8 +15,12 @@ Manage nodes in the system including retrieving node information and handling lo
 
 Retrieve a list of all nodes.
 
-**Response:**  
-- `200 OK` — JSON array of nodes.
+**Response:**
+
+- If cluster service is available:
+{ "nodes": [ { "id": "string", "hostName": "string", "port": number } ] }
+- If cluster service is not available:
+{ "id": "local", "name": "string" }
 
 ---
 
@@ -24,11 +28,11 @@ Retrieve a list of all nodes.
 
 Retrieve information about a specific node.
 
-**Path Parameters:**  
+**Path Parameters:**
 - `id` (string): Node identifier.
 
-**Response:**  
-- `200 OK` — JSON object with node details.
+**Response:**
+{ "id": "string", "hostName": "string", "home": "string", "os": "string", "jvm": "string", "databaseDescription": "string", "databaseConnectionURL": "string", "databaseStatus": "string", "availableProcessors": number, "averageSystemLoad": number, "memoryUsage": number, "heapMemoryUsage": number, "runtime": "string", "runtimeUptime": "string", "threadCount": number, "peakThreadCount": number, "daemonThreadCount": number, "totalStartedThreadCount": number, "logLevel": "string", "currentLogFile": "string", "sessionCount": number, "garbageCollectionCount": number, "garbageCollectionTime": number }
 
 ---
 
@@ -36,11 +40,11 @@ Retrieve information about a specific node.
 
 Retrieve logs for a specific node.
 
-**Path Parameters:**  
+**Path Parameters:**
 - `id` (string): Node identifier.
 
-**Response:**  
-- `200 OK` — JSON array of log entries.
+**Response:**
+{ "logs": [ { "fileName": "string", "fileSize": number } ] }
 
 ---
 
@@ -48,15 +52,15 @@ Retrieve logs for a specific node.
 
 Download a log file for a specific node.
 
-**Path Parameters:**  
+**Path Parameters:**
 - `id` (string): Node identifier.
 
-**Query Parameters:**  
-- `fileName` (string, optional): Name of the log file.  
+**Query Parameters:**
+- `fileName` (string, optional): Name of the log file.
 - `asJson` (string, optional): If set, returns the log as JSON.
 
-**Response:**  
-- `200 OK` — Log file as octet-stream, HTML, or plain text.
+**Response:**
+- `200 OK` — Log file as octet-stream, HTML, plain text, or JSON.
 
 ---
 
@@ -64,11 +68,11 @@ Download a log file for a specific node.
 
 Delete all logs for a specific node.
 
-**Path Parameters:**  
+**Path Parameters:**
 - `id` (string): Node identifier.
 
-**Response:**  
-- `200 OK` — JSON result of the deletion.
+**Response:**
+{ "currentLogFile": "string" }
 
 ---
 
@@ -76,11 +80,11 @@ Delete all logs for a specific node.
 
 Rotate the logs for a specific node.
 
-**Path Parameters:**  
+**Path Parameters:**
 - `id` (string): Node identifier.
 
-**Response:**  
-- `200 OK` — JSON result of the rotation.
+**Response:**
+{ "currentLogFile": "string" }
 
 ---
 
@@ -88,16 +92,18 @@ Rotate the logs for a specific node.
 
 Update the log level for a specific node.
 
-**Path Parameters:**  
-- `id` (string): Node identifier.  
+**Path Parameters:**
+- `id` (string): Node identifier.
 - `logLevel` (string): New log level.
 
-**Response:**  
-- `200 OK` — JSON result of the update.
+**Response:**
+{ "logLevel": "string" }
 
 ---
 
-## Constants
+## Error Responses
 
-- `LOCAL_ID = "local"`
-- `CURRENT_FILE_NAME = "current"`
+All endpoints may return error responses in the following format:
+{ "status": "HTTP status code", "title": "Error title", "detail": "Error details" }
+
+---
