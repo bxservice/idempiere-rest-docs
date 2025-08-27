@@ -70,3 +70,8 @@ sidebar_position: 1
 ## REST_TABLES_EXPORT_LOOKUP_UU
 - **Scope**: Tenant  
 - **Description**: Configure tables to return UUID in lookup fields. Use `ALL` (case insensitive) for all tables. Can impact performance.
+
+## REST_HIDE_PRESIGNED_URL_ERRORS 
+- **Type**: Y/N - defaults to Y  
+- **Scope**: System  
+- **Description**: If `Y`, show generic message (**REST_Presigned_URL_Generic_Error** AD_Message, default is **Something went wrong ...**) for errors caused by access to Presigned URL.
