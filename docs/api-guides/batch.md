@@ -12,9 +12,9 @@ This endpoint allows executing one or more sub-requests.
 
 The `transaction` parameter determines whether all batch requests should be processed within a single database transaction.  The default is `true`
 
-If transaction is `true`, the method will roll back all changes if any request in the batch fails, ensuring atomicity.
+If transaction is `true`, the method will roll back all changes if any request in the batch fails, ensuring atomicity.  All requests are executed in single transaction. Processing of request stop when it hit the first error.
 
-If transaction is `false`, each request is processed in its own transaction, so failures in one request do not affect others.
+If transaction is `false`, each request is processed in its own transaction, so failures in one request do not affect others.  All request will be processed even when some has error. Caller needs to check the status code of each response item to find out whether the execution of a particular request is success or fail.
 
 **Example:** `POST /api/v1/batch?transaction=false`
 
