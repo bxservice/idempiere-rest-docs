@@ -6,7 +6,17 @@ sidebar_position: 7
 
 **Endpoint:** `POST /api/v1/batch`
 
-This endpoint allows executing one or more sub-requests in a single transaction.
+This endpoint allows executing one or more sub-requests.
+
+**Optional parameter:**
+
+The `transaction` parameter determines whether all batch requests should be processed within a single database transaction.  The default is `true`
+
+If transaction is `true`, the method will roll back all changes if any request in the batch fails, ensuring atomicity.
+
+If transaction is `false`, each request is processed in its own transaction, so failures in one request do not affect others.
+
+**Example:** `POST /api/v1/batch?transaction=false`
 
 ## Request Body
 
@@ -54,4 +64,3 @@ An array of results from each sub-request. Each object includes:
 
 - You can include various types of requests in the same batch, including creation, update, deletion, and even running processes.
 - You can create base data (like business partners) and use them in later requests (e.g., creating orders) within the same batch request.
-- If any of the requests fail, everything is rollback and an error is returned.
