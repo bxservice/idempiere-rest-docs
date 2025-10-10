@@ -67,6 +67,7 @@ These fields have the following meaning:
 | `skip-records`  | the number of records skipped (parameter $skip) |
 | `row-count`     | the number of records matching the filter |
 | `array-count`   | the number of records returned (size of the array records) |
+
 These variables are also returned as Response Headers: `X-Array-Count`, `X-Page-Count`, `X-Records-Size`, `X-Row-Count` and `X-Skip-Records`
 
 Each record in `records` follows the standard field format described above.
