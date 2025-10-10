@@ -4,14 +4,6 @@ sidebar_position: 8
 
 # Other Endpoints
 
-## Servers `api/v1/servers`
-
-Manage server and scheduler resources.
-
-**Status**: To Be Documented (TBD)
-
----
-
 ## Infos `api/v1/infos`
 
 Access info windows and their data.
