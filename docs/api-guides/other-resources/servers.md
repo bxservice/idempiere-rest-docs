@@ -17,21 +17,52 @@ It handles operations such as starting/stopping servers, viewing logs, and manag
 
 Returns a list of all server instances.
 
-**Response:**
+**Sample Response:**
 
-- If cluster service is available:
 ```json
 {
-  "servers": [
-    {
-      "id": "string",
-      "name": "string",
-      "nodeId": "string",
-      "hostName": "string",
-      "port": number,
-      "started": boolean
-    }
-  ]
+    "servers": [
+        {
+            "id": "Scheduler50002",
+            "name": "Housekeeping T_InventoryValue",
+            "nodeId": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+            "hostName": "10.7.47.1",
+            "port": 5701,
+            "started": true
+        },
+        {
+            "id": "Scheduler50009",
+            "name": "Housekeeping T_TrialBalance",
+            "nodeId": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+            "hostName": "10.7.47.1",
+            "port": 5701,
+            "started": true
+        },
+        {
+            "id": "AlertProcessor100",
+            "name": "System Alert Processor",
+            "nodeId": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+            "hostName": "10.7.47.1",
+            "port": 5701,
+            "started": true
+        },
+        {
+            "id": "WorkflowProcessor100",
+            "name": "System Workflow Processor",
+            "nodeId": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+            "hostName": "10.7.47.1",
+            "port": 5701,
+            "started": true
+        },
+        {
+            "id": "AcctProcessor100",
+            "name": "GardenWorld Accounting Processor",
+            "nodeId": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+            "hostName": "10.7.47.1",
+            "port": 5701,
+            "started": true
+        }
+    ]
 }
 ```
 
@@ -47,19 +78,18 @@ Returns detailed information about a specific server instance.
 **Response:**
 ```json
 {
-  "id": "string",
-  "name": "string",
-  "nodeId": "string",
-  "hostName": "string",
-  "port": number,
-  "description": "string",
-  "lastRun": "datetime",
-  "info": "string",
-  "nextRun": "datetime",
-  "statistics": "string",
-  "started": boolean,
-  "sleeping": boolean,
-  "interruptd": boolean
+    "id": "WorkflowProcessor100",
+    "name": "System Workflow Processor",
+    "nodeId": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+    "hostName": "10.7.47.1",
+    "port": 5701,
+    "lastRun": "Oct 31, 2025, 11:37:25 AM CET",
+    "info": "#0 - Last=",
+    "nextRun": "Oct 31, 2025, 1:37:25 PM CET",
+    "statistics": "Run #0 - Last=0 - Total=0 - Next 0'01:40:07.952",
+    "started": true,
+    "sleeping": true,
+    "interruptd": false
 }
 ```
 
@@ -75,16 +105,20 @@ Retrieves execution logs for a specific server instance.
 **Response:**
 ```json
 {
-  "logs": [
-    {
-      "created": "datetime",
-      "summary": "string",
-      "description": "string",
-      "reference": "string",
-      "textMessage": "string",
-      "error": boolean
-    }
-  ]
+    "logs": [
+        {
+            "created": "Oct 31, 2025, 11:37:25 AM CET",
+            "summary": "Wakeup #0 - DynPriority #0 - EndWaitTime #0 - Logs deleted=0",
+            "reference": "#0 - 0'00:00:00.24",
+            "error": false
+        },
+        {
+            "created": "Oct 30, 2025, 11:08:19 AM CET",
+            "summary": "Wakeup #0 - DynPriority #0 - EndWaitTime #0 - Logs deleted=0",
+            "reference": "#0 - 0'00:00:00.34",
+            "error": false
+        }
+    ]
 }
 ```
 
@@ -98,7 +132,8 @@ Starts or stops a server instance (toggles current state).
 - `id` (string): Server instance identifier.
 
 **Response:**
-Returns server details (same as Get Server Details)
+Returns server details (same as Get Server Details).
+Toggling the `"started":` between `true` and `false`
 
 ---
 
@@ -130,21 +165,70 @@ Returns information about a specific scheduler.
 **Path Parameters:**
 - `id` (string): Scheduler identifier.
 
-**Response:**
+**Sample Response:**
 ```json
 {
-  "server-id": "string",
-  "scheduler-state": "string",
-  "node-id": "string",
-  "node-host-name": "string",
-  "node-port": number,
-  // Additional scheduler properties from PO serialization
+    "id": 100,
+    "uid": "777a868e-ee1a-4d7e-9ebd-5c104c484819",
+    "AD_Client_ID": {
+        "propertyLabel": "Tenant",
+        "id": 0,
+        "identifier": "System",
+        "model-name": "ad_client"
+    },
+    "Supervisor_ID": {
+        "propertyLabel": "Supervisor",
+        "id": 10,
+        "identifier": "System",
+        "model-name": "ad_user"
+    },
+    "IsActive": true,
+    "AD_Process_ID": {
+        "propertyLabel": "Process",
+        "id": 241,
+        "identifier": "Delete Notices_AD_NoteDelete",
+        "model-name": "ad_process"
+    },
+    "CreatedBy": {
+        "propertyLabel": "Created By",
+        "id": 0,
+        "identifier": "~System (deprecated)~",
+        "model-name": "ad_user"
+    },
+    "Updated": "2025-10-30T11:08:20Z",
+    "AD_Org_ID": {
+        "propertyLabel": "Organization",
+        "id": 0,
+        "identifier": "*",
+        "model-name": "ad_org"
+    },
+    "UpdatedBy": {
+        "propertyLabel": "Updated By",
+        "id": 10,
+        "identifier": "System",
+        "model-name": "ad_user"
+    },
+    "Created": "2004-03-06T00:39:02Z",
+    "Name": "Delete Old Notes",
+    "KeepLogDays": 7,
+    "AD_Schedule_ID": {
+        "propertyLabel": "Schedule",
+        "id": 200001,
+        "identifier": "7 Days",
+        "model-name": "ad_schedule"
+    },
+    "model-name": "ad_scheduler",
+    "server-id": "Scheduler100",
+    "scheduler-state": "Scheduler Started",
+    "node-id": "5e40ca82-682a-4957-aec1-04c9a2fe3a20",
+    "node-host-name": "10.7.47.1",
+    "node-port": 5701
 }
 ```
 
 ---
 
-### `POST /api/v1/schedulers/{id}/add`
+### `POST /api/v1/schedulers/{id}`
 
 Adds a scheduler to be managed by the server.
 
@@ -156,7 +240,7 @@ Returns scheduler details with HTTP 201 (Created) if successful, or 409 (Conflic
 
 ---
 
-### `POST /api/v1/schedulers/{id}/remove`
+### `DELETE /api/v1/schedulers/{id}`
 
 Removes a scheduler from server management.
 
@@ -170,12 +254,12 @@ Returns scheduler details
 
 ## Error Responses
 
-All endpoints may return error responses in the following format:
+All endpoints may return error responses in the following format (example):
 ```json
 {
-  "status": number,
-  "title": "string",
-  "detail": "string"
+    "title": "Invalid scheduler Id",
+    "status": 404,
+    "detail": "No match found for scheduler id: 1000"
 }
 ```
 
