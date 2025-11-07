@@ -1,16 +1,8 @@
 ---
-sidebar_position: 8
+sidebar_position: 12
 ---
 
 # Other Endpoints
-
-## Infos `api/v1/infos`
-
-Access info windows and their data.
-
-**Status**: To Be Documented (TBD)
-
----
 
 ## Reference `api/v1/reference/{id}`
 
