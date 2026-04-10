@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 40
 id: health-endpoint
 title: Health Check
 sidebar_label: Health Check

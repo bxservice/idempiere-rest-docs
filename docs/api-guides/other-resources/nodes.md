@@ -1,5 +1,5 @@
 ---
-sidebar_position: 9
+sidebar_position: 80
 id: node-resource
 title: NodeResource API
 sidebar_label: NodeResource

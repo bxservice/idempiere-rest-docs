@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 110
 id: server-resource
 title: ServerResource API
 sidebar_label: ServerResource
