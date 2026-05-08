@@ -271,15 +271,3 @@ Today the handler treats the request body as opaque text and forwards it as-is t
 Event subscriptions today fire on every event of the configured `Event Model Validator` for the configured table. There is no way to attach a *condition* (e.g. "only deliver `DACO` events when `DocStatus = CO` and `GrandTotal > 1000`") without writing a custom payload-template trick or shaping it on the receiver.
 
 **Roadmap:** add a per-subscription **Condition** field (SQL or Java/Groovy expression evaluated against the source PO) that filters events before they enqueue a delivery.
-
-### 5.4 What's already in scope
-
-For reference, the following items were considered during review and are **already implemented** in this release:
-
-- Auto-generated webhook secret on save when none is provided (Standard Webhooks mode).
-- Atomic claim of a delivery row (`DeliveryStatus = I`) so concurrent dispatchers (event handler vs scheduler) don't double-deliver, with automatic recovery of stuck rows after 5 minutes.
-- Dedicated dispatch thread pool with bounded queue and graceful shutdown on bundle stop.
-- Negative-cache for unknown inbound endpoint keys to avoid a DB hit per request on bad URLs.
-- `X-Forwarded-For` resolution gated by a system-level trusted-proxies allowlist.
-- Conditional `webhook-id` requirement (mandatory when signing is on, optional otherwise).
-- Strict signature verification: malformed `v1,` signatures raise an error instead of being silently skipped.
