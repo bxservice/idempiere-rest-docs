@@ -1,0 +1,8 @@
+{
+  "label": "Webhooks (Inbound & Outbound)",
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "description": "Configuration guide for outbound and inbound webhooks following the Standard Webhooks specification."
+  }
+}
