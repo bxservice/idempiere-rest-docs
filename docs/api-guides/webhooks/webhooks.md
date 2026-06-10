@@ -12,7 +12,7 @@ iDempiere REST ships with a webhook subsystem that follows the [Standard Webhook
 Outbound payloads are wrapped in a Standard Webhooks envelope and signed with HMAC-SHA256, so the receiver can verify authenticity. Inbound endpoints can require the same signature on incoming requests.
 
 :::tip Master switches
-Both directions are gated by client-level SysConfig flags (`REST_WEBHOOK_ENABLED`, `REST_WEBHOOK_INBOUND_ENABLED`). Disable them per tenant without touching individual endpoints.
+Both directions are gated by client-level SysConfig flags (`REST_WEBHOOK_ENABLED`, `REST_WEBHOOK_INBOUND_ENABLED`). Both are **disabled by default** — set the relevant flag to `Y` to enable webhooks for a tenant. They can also be toggled per tenant without touching individual endpoints.
 :::
 
 ---
@@ -203,8 +203,8 @@ The resolver walks the `X-Forwarded-For` chain right-to-left and picks the first
 
 | Key | Default | Level | Description |
 |---|---|---|---|
-| `REST_WEBHOOK_ENABLED` | `Y` | Client | Master switch for outbound webhooks. |
-| `REST_WEBHOOK_INBOUND_ENABLED` | `Y` | Client | Master switch for inbound webhooks. |
+| `REST_WEBHOOK_ENABLED` | `N` | Client | Master switch for outbound webhooks. Disabled by default — set to `Y` to enable. |
+| `REST_WEBHOOK_INBOUND_ENABLED` | `N` | Client | Master switch for inbound webhooks. Disabled by default — set to `Y` to enable. |
 | `REST_WEBHOOK_MAX_RETRIES` | `10` | System | Max delivery attempts before abandoning a delivery. |
 | `REST_WEBHOOK_TIMEOUT_MS` | `15000` | Client | HTTP timeout for outbound delivery (in milliseconds). |
 | `REST_WEBHOOK_MAX_PAYLOAD_SIZE` | `20480` | Client | Max outbound payload size in bytes. Larger payloads are dropped with a warning. |
