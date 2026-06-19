@@ -74,7 +74,8 @@ Retrieves the content of a single archive entry.
 **Returns:**
 
 - By default, the file content as `application/octet-stream` (for example, a PDF).
-- With `json`, a JSON object: `name`, `contentType`, and `data` (base64 encoded content).
+  The MIME type is returned in the `Content-Type` response header.
+- With `json`, a JSON object with a single `data` field holding the base64 encoded content.
 
 **Example (base64):**
 
@@ -84,8 +85,6 @@ GET /api/v1/models/c_invoice/1000045/archives/1000123?json=true
 
 ```json
 {
-  "name": "Invoice_1000045.pdf",
-  "contentType": "application/pdf",
   "data": "JVBERi0xLjQ..."
 }
 ```
