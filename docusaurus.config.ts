@@ -94,6 +94,45 @@ const config: Config = {
         explicitSearchResultPath: true,
       },
     ],
+    [
+      'docusaurus-plugin-llms',
+      {
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: true,
+        generateMarkdownFiles: true,
+        docsDir: 'docs',
+        title: 'iDempiere REST API Documentation',
+        description:
+          'Documentation for the iDempiere REST API: authentication, CRUD operations, querying, processes, workflows, uploads, webhooks and configuration.',
+        // Getting started and core API usage first.
+        includeOrder: [
+          'intro.md',
+          'quickstart.md',
+          'api-guides/authentication.md',
+          'api-guides/crud-operations/**',
+          'api-guides/**',
+          'contribute.md',
+        ],
+      },
+    ],
+  ],
+
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'iDempiere REST API Documentation',
+        url: 'https://bxservice.github.io/idempiere-rest-docs/',
+        publisher: {
+          '@type': 'Organization',
+          name: 'BX Service GmbH',
+          url: 'https://www.bx-service.com',
+        },
+      }),
+    },
   ],
 
   themeConfig: {
