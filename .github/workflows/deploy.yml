@@ -25,6 +25,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history for "Last updated" dates and sitemap lastmod.
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
