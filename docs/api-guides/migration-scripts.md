@@ -6,7 +6,15 @@ sidebar_position: 8
 
 The iDempiere REST API provides dedicated HTTP request headers that allow developers and system administrators to automatically generate database migration scripts (`.sql` files) and control centralized dictionary ID allocation (`AdempiereSys`) when creating or modifying Application Dictionary (AD) records via the API.
 
-This capability is particularly useful when automating schema migrations, configuring dictionary elements, tables, columns, windows, or processes through CI/CD pipelines, scripts, or REST-based developer tooling.
+:::info Feature Availability
+Introduced in **iDempiere 14** via [IDEMPIERE-7173](https://idempiere.atlassian.net/browse/IDEMPIERE-7173). Existing REST API requests without these headers continue to behave normally with zero migration impact.
+:::
+
+When configuring or customizing iDempiere through the web client, developers can turn on migration script logging and Dictionary Maintenance mode to write Application Dictionary modifications into official SQL migration scripts with centralized IDs. This capability brings the same functionality to the REST API:
+
+- **Automated Tooling & MCP Support**: Model Context Protocol (MCP) servers and AI coding agents can capture dictionary modifications in standard migration files.
+- **Consolidated Script per Session**: Multiple related API requests in a sequence append to a single consolidated migration script for the ticket, rather than creating fragmented timestamped files.
+- **Process Inheritance**: Background and asynchronous processes triggered via `/api/v1/processes` inherit the migration logging context.
 
 ---
 
@@ -17,13 +25,34 @@ To protect data dictionary integrity and prevent unintentional script generation
 :::important Authorization Requirement
 The migration script and system request headers are **only honored** for authenticated JWT tokens corresponding to **seed tenants** and **seed administrator users**:
 
-- **Tenant:** `AD_Client_ID <= 20` (e.g., Client `0` / `System`)
+- **Tenant:** `AD_Client_ID <= 20` (e.g., Client `0` / `System` or Client `11` / `GardenWorld`)
 - **User:** `AD_User_ID <= 102` (e.g., User `100` / `SuperUser` or User `0` / `System`)
 
 This restriction is identical to the permission check performed by the iDempiere web client (`WPreference`).
 
 For all other client tenants (with `AD_Client_ID > 20`) or non-seed users (with `AD_User_ID > 102`), these headers are **silently ignored**, and requests proceed with standard execution without generating migration scripts.
 :::
+
+### Authenticating as an Authorized Seed User
+
+Obtain a JWT token for a seed tenant (`AD_Client_ID <= 20`) and seed user (`AD_User_ID <= 102`), such as the `System` Tenant (`AD_Client_ID=0`) with `SuperUser`:
+
+```bash
+curl -X POST https://your-server.com/api/v1/auth/tokens \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userName": "SuperUser",
+    "password": "SystemPassword",
+    "parameters": {
+      "clientId": "0",
+      "roleId": "0",
+      "organizationId": "0",
+      "language": "en_US"
+    }
+  }'
+```
+
+Save the returned bearer token for use in subsequent requests.
 
 ---
 
@@ -92,6 +121,23 @@ iDempiere automatically generates and synchronizes migration scripts for both su
 - **PostgreSQL:** Saved to `<migration_folder>/postgresql/<filename>`
 - **Oracle:** Saved to `<migration_folder>/oracle/<filename>`
 
+### Generated Script Output
+
+The resulting script contains the initial registration header followed by all statements generated during the session:
+
+```sql
+-- IDEMPIERE-7173 Add customer feedback element
+SELECT register_migration_script('202610292100_IDEMPIERE-7173.sql') FROM dual;
+
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,1000001,0,'CustomerFeedback',TO_TIMESTAMP('2026-10-29 21:00:00','YYYY-MM-DD HH24:MI:SS'),100,'D','Y','Customer Feedback','Customer Feedback',TO_TIMESTAMP('2026-10-29 21:00:00','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAlwaysUpdateable,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,1000002,1000001,0,10,259,'CustomerFeedback',TO_TIMESTAMP('2026-10-29 21:00:00','YYYY-MM-DD HH24:MI:SS'),100,'D',255,'Y','N','N','N','N','N','N','N','N','N','Y','Customer Feedback',0,TO_TIMESTAMP('2026-10-29 21:00:00','YYYY-MM-DD HH24:MI:SS'),100,0)
+;
+```
+
+The `register_migration_script` call and Oracle headers are written once when the file is initialized. Subsequent operations within the same authenticated session append only their SQL statements.
+
 ---
 
 ## Request Lifecycle & Isolation
@@ -110,6 +156,26 @@ When executing dictionary-related processes via the `/api/v1/processes` endpoint
 
 - The migration script context values (`P_LOGMIGRATIONSCRIPT`, `P_ADEMPIERESYS`, `MigrationScriptComment`, and the resolved script file name) are automatically copied to the asynchronous process execution thread.
 - DDL and DML operations performed by the background process are recorded into the exact same migration script file.
+
+---
+
+## Technical Architecture & Core API
+
+### Core iDempiere Engine
+
+Core iDempiere introduces session-aware script generation support in `org.compiere.dbPort.Convert`:
+
+- `Convert.CONTEXT_MIGRATION_SCRIPT_FILE_NAME`: Set to `"MigrationScriptFileName"`. When present in the environment context (`Env.getCtx()`), `Convert.logMigrationScript` writes to the designated file name instead of generating a new timestamp for every SQL statement.
+- `Convert.closeLogMigrationScript()`: Flushes and closes open file streams, saving the last generated file name.
+- `Convert.getLastGeneratedFileName()`: Returns the name of the last generated script file.
+
+### REST API Filters & Context Handling
+
+The `com.trekglobal.idempiere.rest.api` bundle manages the migration script context through JAX-RS filters:
+
+- `RequestFilter`: Validates seed tenant and user permissions (`AD_Client_ID <= 20` and `AD_User_ID <= 102`), sanitizes comments, and applies settings to the execution context via `MigrationScriptContext.apply(requestContext)`.
+- `ResponseFilter`: Flushes and closes open script writers after request execution via `MigrationScriptContext.closeMigrationScriptFiles(requestContext)`.
+- `ProcessResourceImpl`: Automatically copies the migration context to process threads via `MigrationScriptContext.copy(ctx, m_ctx)`, ensuring that processes such as table synchronization write to the active migration script.
 
 ---
 
@@ -212,3 +278,22 @@ X-ID-MigrationScriptComment: IDEMPIERE-9876 Validate table index for loyalty
 The process thread inherits the migration script context and records any resulting DDL (`CREATE INDEX ...`) into the migration script file.
 
 ---
+
+## Model Context Protocol (MCP) Integration
+
+The iDempiere MCP server (`idempiere-mcp`) exposes three optional parameters on tools that modify records, manage windows, or execute processes:
+
+- `logMigrationScript` (`boolean`): Maps to `X-ID-LogMigrationScript`. Enables or disables database migration script generation.
+- `adempiereSys` (`boolean`): Maps to `X-ID-AdempiereSys`. Enables or disables Dictionary Maintenance mode and centralized ID generation.
+- `migrationScriptComment` (`string`): Maps to `X-ID-MigrationScriptComment`. Ticket number or comment for the migration script header and file name.
+
+This allows MCP-enabled AI assistants and developer tooling to automate Application Dictionary maintenance while preserving a clean, consolidated migration trail.
+
+---
+
+## Related Tickets & References
+
+- [IDEMPIERE-7173](https://idempiere.atlassian.net/browse/IDEMPIERE-7173): Add support for generation of migration script through REST API
+- [bxservice/idempiere-rest Issue #543](https://github.com/bxservice/idempiere-rest/issues/543): Add HTTP header to support the generation of migration script through REST API
+- [iDempiere MCP Skills](https://github.com/hengsin/idempiere-mcp/tree/main/idempiere-mcp-skills): MCP skills with migration script support
+
