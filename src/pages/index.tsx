@@ -33,8 +33,8 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="iDempiere REST"
-      description="Description will go into a meta tag in <head />">
+      title="iDempiere REST API"
+      description="Documentation for the iDempiere REST API: authentication, CRUD operations, querying, processes, workflows, uploads and webhooks.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
