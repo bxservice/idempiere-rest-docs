@@ -137,7 +137,7 @@ const config: Config = {
 
   themeConfig: {
     // Social card for link previews
-    image: 'img/logo.png',
+    image: 'img/social-card.png',
     navbar: {
       title: 'iDempiere REST',
       logo: {
